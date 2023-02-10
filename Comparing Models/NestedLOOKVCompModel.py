@@ -14,13 +14,17 @@ y = pd.DataFrame(np.load("PlayingSpiroData/Spiro-Data/npy_file/FEV1_LABELS_60.np
 # RF = RandomForestRegressor( n_jobs=-1, bootstrap=True, criterion='absolute_error', 
 #                                   n_estimators=100,  max_features=1.0, max_depth=300,  
 #                                   min_samples_leaf=1, min_samples_split=5 ,random_state=42)
+
+# Instantiating Random forrest Regressor.
 RF = RandomForestRegressor()
 
 # DT = DecisionTreeRegressor( criterion='absolute_error',min_samples_leaf=1, 
 #                                 min_samples_split=5 ,random_state=42)
+
+# Instantiating Decision Tree Regressor.
 DT = DecisionTreeRegressor() 
 
-
+# Dictionary to specify Estimators/Regressors and their Hyperparameters.
 RegDict =   { "Random_Forrest_Regression" :   {"estimator":RF , "param_grid" : {  'bootstrap': [True],
                                                                                 'criterion': ['absolute_error'],
                                                                                 'max_depth': [50, 100, 150, 300],
@@ -40,8 +44,9 @@ RegDict =   { "Random_Forrest_Regression" :   {"estimator":RF , "param_grid" : {
 
 abserror = []
 tot = len(X)
-loo = LeaveOneOut()
 
+# Instantiating Leave_One_Out split function.
+loo = LeaveOneOut()
 
 for Reg in RegDict:
 
@@ -74,6 +79,7 @@ for Reg in RegDict:
 
         abserror.append(np.abs( (y_Test.iloc[0,0] - pred[0])/ y_Test.iloc[0,0] ))
 
+    # Calculating Metrics
     MAPE = 100 * np.mean(abserror)
     print("Calculated MAPE : ", MAPE )
     print(" sklearm MAPE : " , 100 * mean_absolute_percentage_error(y_GT,y_PT))
