@@ -20,9 +20,9 @@ reg.fit(X_train,y_train)
 y_hat = reg.predict(X_test)
 
 print("Linear regression for FEV1")
-print("R2 score : ", reg.score(X_test,y_test))
+print("R2 score : ", reg.score(X_train,y_train))
 print("RMSE obtained :",mean_squared_error(y_test,y_hat))
-print("MAPE obtained :",mean_absolute_percentage_error(y_test,y_hat))
+print("MAPE obtained :",100 * mean_absolute_percentage_error(y_test,y_hat))
 print("MEA obtained :",mean_absolute_error(y_test,y_hat))
   
 
